@@ -46,7 +46,7 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	@Transactional(readOnly = true)
 	Collection<Owner> findByLastName(@Param("lastName") String lastName);
 
-	//WHAT: :firstName -> firstName Param 을 참조 하겠다.
+	// WHAT: :firstName -> firstName Param 을 참조 하겠다.
 	// :firstName% -> firstName 으로 시작 하는 문자열을 검색 하겠다.
 	@Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.firstName LIKE :firstName%")
 	@Transactional(readOnly = true)

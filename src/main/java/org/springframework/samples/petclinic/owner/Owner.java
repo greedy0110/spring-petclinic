@@ -62,7 +62,7 @@ public class Owner extends Person {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
 	private Set<Pet> pets;
 
-	//WHAT: schema 파일도 함께 수정해 주어야 한다.
+	// WHAT: schema 파일도 함께 수정해 주어야 한다.
 	@Column(name = "age")
 	private Integer age;
 

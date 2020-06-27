@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,12 +43,16 @@ class OwnerController {
 	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
 	private final OwnerRepository owners;
+	private final VisitRepository visits;
+	private final PetRepository petRepository;
 
-	private VisitRepository visits;
-
-	public OwnerController(OwnerRepository clinicService, VisitRepository visits) {
+	// WHAT: 이 생성자는 누가 호출해 주는가? -> 스프링에 있는 IoC 컨테이너가 해줌.
+	public OwnerController(OwnerRepository clinicService,
+						   VisitRepository visits,
+						   PetRepository petRepository) {
 		this.owners = clinicService;
 		this.visits = visits;
+		this.petRepository = petRepository;
 	}
 
 	@InitBinder
@@ -79,7 +84,7 @@ class OwnerController {
 		return "owners/findOwners";
 	}
 
-	//WHAT: 어떻게, button 클릭을 통해서 이 함수가 호출 되며,
+	// WHAT: 어떻게, button 클릭을 통해서 이 함수가 호출 되며,
 	// 실행 -> form 의 action 에 의해서, /owners 가 실행 된다.
 	// 아래의 인자는 어떻게 제공 되는가?
 	@GetMapping("/owners")
@@ -94,7 +99,7 @@ class OwnerController {
 		Collection<Owner> results = this.owners.findByFirstNameContaining(owner.getFirstName());
 		if (results.isEmpty()) {
 			// no owners found
-			//WHAT: result, reject value?
+			// WHAT: result, reject value?
 			result.rejectValue("firstName", "notFound", "not found");
 			return "owners/findOwners";
 		}

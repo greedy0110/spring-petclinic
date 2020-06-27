@@ -79,19 +79,23 @@ class OwnerController {
 		return "owners/findOwners";
 	}
 
+	//WHAT: 어떻게, button 클릭을 통해서 이 함수가 호출 되며,
+	// 실행 -> form 의 action 에 의해서, /owners 가 실행 된다.
+	// 아래의 인자는 어떻게 제공 되는가?
 	@GetMapping("/owners")
 	public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
 
 		// allow parameterless GET request for /owners to return all records
-		if (owner.getLastName() == null) {
-			owner.setLastName(""); // empty string signifies broadest possible search
+		if (owner.getFirstName() == null) {
+			owner.setFirstName(""); // empty string signifies broadest possible search
 		}
 
 		// find owners by last name
-		Collection<Owner> results = this.owners.findByLastName(owner.getLastName());
+		Collection<Owner> results = this.owners.findByFirstName(owner.getFirstName());
 		if (results.isEmpty()) {
 			// no owners found
-			result.rejectValue("lastName", "notFound", "not found");
+			//WHAT: result, reject value?
+			result.rejectValue("firstName", "notFound", "not found");
 			return "owners/findOwners";
 		}
 		else if (results.size() == 1) {

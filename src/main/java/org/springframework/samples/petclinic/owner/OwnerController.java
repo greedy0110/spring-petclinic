@@ -91,7 +91,7 @@ class OwnerController {
 		}
 
 		// find owners by last name
-		Collection<Owner> results = this.owners.findByFirstName(owner.getFirstName());
+		Collection<Owner> results = this.owners.findByFirstNameContaining(owner.getFirstName());
 		if (results.isEmpty()) {
 			// no owners found
 			//WHAT: result, reject value?

@@ -61,6 +61,7 @@ class OwnerController {
 	}
 
 	@GetMapping("/owners/new")
+	@LogExecutionTime
 	public String initCreationForm(Map<String, Object> model) {
 		Owner owner = new Owner();
 		model.put("owner", owner);
@@ -88,6 +89,7 @@ class OwnerController {
 	// 실행 -> form 의 action 에 의해서, /owners 가 실행 된다.
 	// 아래의 인자는 어떻게 제공 되는가?
 	@GetMapping("/owners")
+	@LogExecutionTime
 	public String processFindForm(Owner owner, BindingResult result, Map<String, Object> model) {
 
 		// allow parameterless GET request for /owners to return all records
